@@ -1,6 +1,5 @@
-package com.eventbuddy.eventbuddydemo.responses;
+package com.eventbuddy.eventbuddydemo.dto;
 
-import com.eventbuddy.eventbuddydemo.dto.UserDto;
 import com.eventbuddy.eventbuddydemo.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

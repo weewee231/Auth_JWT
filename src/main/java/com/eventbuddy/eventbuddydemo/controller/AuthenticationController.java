@@ -1,8 +1,8 @@
 package com.eventbuddy.eventbuddydemo.controller;
 
 import com.eventbuddy.eventbuddydemo.dto.*;
-import com.eventbuddy.eventbuddydemo.responses.AuthResponse;
-import com.eventbuddy.eventbuddydemo.responses.VerifyResponse;
+import com.eventbuddy.eventbuddydemo.dto.AuthResponse;
+import com.eventbuddy.eventbuddydemo.dto.VerifyResponse;
 import com.eventbuddy.eventbuddydemo.service.AuthenticationService;
 import com.eventbuddy.eventbuddydemo.service.JwtService;
 import jakarta.validation.Valid;

@@ -3,6 +3,8 @@ package com.eventbuddy.eventbuddydemo.controller;
 import com.eventbuddy.eventbuddydemo.dto.CreateProjectDto;
 import com.eventbuddy.eventbuddydemo.dto.EditProjectDto;
 import com.eventbuddy.eventbuddydemo.dto.ProjectDto;
+import com.eventbuddy.eventbuddydemo.dto.ProjectFilterDto;
+import com.eventbuddy.eventbuddydemo.model.Project;
 import com.eventbuddy.eventbuddydemo.model.User;
 import com.eventbuddy.eventbuddydemo.service.ProjectService;
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,6 +32,31 @@ public class ProjectController {
         User currentUser = getCurrentUser();
         log.info("GET /projects - getting all projects for user: {}", currentUser.getEmail());
         List<ProjectDto> projects = projectService.getAllProjects(currentUser);
+        return ResponseEntity.ok(projects);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProjectDto>> searchProjects(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) Project.ProjectStatus status,
+            @RequestParam(required = false) LocalDateTime deadlineFrom,
+            @RequestParam(required = false) LocalDateTime deadlineTo,
+            @RequestParam(required = false, defaultValue = "createdAt") String sortBy,
+            @RequestParam(required = false, defaultValue = "DESC") String sortDirection
+    ) {
+        User currentUser = getCurrentUser();
+        log.info("GET /projects/search - searching projects for user: {} with search={}, status={}", 
+                currentUser.getEmail(), search, status);
+        
+        ProjectFilterDto filter = new ProjectFilterDto();
+        filter.setSearch(search);
+        filter.setStatus(status);
+        filter.setDeadlineFrom(deadlineFrom);
+        filter.setDeadlineTo(deadlineTo);
+        filter.setSortBy(sortBy);
+        filter.setSortDirection(sortDirection);
+        
+        List<ProjectDto> projects = projectService.searchProjects(currentUser, filter);
         return ResponseEntity.ok(projects);
     }
 

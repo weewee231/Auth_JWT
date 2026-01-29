@@ -1,4 +1,4 @@
-package com.eventbuddy.eventbuddydemo.responses;
+package com.eventbuddy.eventbuddydemo.dto;
 
 import lombok.Getter;
 import lombok.Setter;

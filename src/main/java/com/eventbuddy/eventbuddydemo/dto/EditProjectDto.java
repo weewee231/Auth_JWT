@@ -1,5 +1,6 @@
 package com.eventbuddy.eventbuddydemo.dto;
 
+import com.eventbuddy.eventbuddydemo.model.Project;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -17,5 +18,7 @@ public class EditProjectDto {
 
     @NotNull(message = "Дедлайн обязателен")
     private LocalDateTime deadline;
+
+    private Project.ProjectStatus status;
 }
 

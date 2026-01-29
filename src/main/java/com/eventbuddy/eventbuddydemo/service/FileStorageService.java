@@ -34,7 +34,7 @@ public class FileStorageService {
                 throw new AuthException("Неверный формат файла", "avatar", "Допустимы только изображения");
             }
 
-            long maxSize = 5 * 1024 * 1024; // 5MB
+            long maxSize = 5 * 1024 * 1024;
             if (file.getSize() > maxSize) {
                 throw new AuthException("Файл слишком большой", "avatar", "Максимальный размер файла 5MB");
             }

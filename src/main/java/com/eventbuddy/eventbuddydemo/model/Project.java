@@ -28,6 +28,10 @@ public class Project {
 
     private LocalDateTime deadline;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProjectStatus status = ProjectStatus.ACTIVE;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
@@ -45,6 +49,14 @@ public class Project {
         this.description = description;
         this.deadline = deadline;
         this.owner = owner;
+        this.status = ProjectStatus.ACTIVE;
+    }
+
+    public enum ProjectStatus {
+        DRAFT,      
+        ACTIVE,    
+        COMPLETED,  
+        ARCHIVED    
     }
 }
 

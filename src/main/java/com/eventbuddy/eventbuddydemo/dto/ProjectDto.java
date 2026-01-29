@@ -14,6 +14,7 @@ public class ProjectDto {
     private String title;
     private String description;
     private LocalDateTime deadline;
+    private Project.ProjectStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -22,6 +23,7 @@ public class ProjectDto {
         this.title = project.getTitle();
         this.description = project.getDescription();
         this.deadline = project.getDeadline();
+        this.status = project.getStatus();
         this.createdAt = project.getCreatedAt();
         this.updatedAt = project.getUpdatedAt();
     }
