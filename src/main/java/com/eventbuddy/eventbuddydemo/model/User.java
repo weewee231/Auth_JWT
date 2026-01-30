@@ -2,6 +2,7 @@ package com.eventbuddy.eventbuddydemo.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -79,8 +81,6 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public User() {}
-
     public User(String email, String name, UserRole role, String password) {
         this.email = email;
         this.name = name;
@@ -89,44 +89,28 @@ public class User implements UserDetails {
         this.enabled = false;
     }
 
+    // ===== Spring Security UserDetails =====
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
     public String getUsername() {
-        return email; // Spring Security использует email для аутентификации
-    }
-
-    public String getNameField() {
-        return name;
+        return email; // Используем email как логин
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+    public boolean isAccountNonLocked() { return true; }
 
     @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+    public boolean isCredentialsNonExpired() { return true; }
+    
+    // getPassword() и isEnabled() генерируются @Getter
 
     public boolean isRefreshTokenValid() {
         return refreshToken != null &&

@@ -21,7 +21,7 @@ public class UserDto {
     public UserDto(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
-        this.name = user.getNameField();
+        this.name = user.getName();
         this.avatarUrl = user.getAvatarUrl();
         this.role = user.getRole();
         this.createdAt = user.getCreatedAt();
